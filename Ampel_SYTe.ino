@@ -53,11 +53,11 @@ void loop()
   
   if(digitalRead(pin_switch)){
     update(cycle_,cycle_interval,led_state,now_cycle,sizeof(cycle_)/size_);
-    now_blink=0;
+    now_blink=1;
   }
   else{
     update(blink_,blink_interval,led_state,now_blink,sizeof(blink_)/size_);
-    now_cycle=0;
+    now_cycle=10;
   }
   //write to pins
   for(int i=0;i<size_;i++)
