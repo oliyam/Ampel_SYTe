@@ -48,7 +48,8 @@ void update(bool cycle[][size], long interval[], bool output[], int& now, int cy
 }
 
 void loop()
-{
+{ 
+  
   current=millis();
   
   if(digitalRead(pin_switch)){
