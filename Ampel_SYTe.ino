@@ -7,14 +7,14 @@ unsigned long previous=0,current=millis();
 //ampelzyklus
 bool cycle_[][size_]={
     {0,0,1},//grün
-    {0,0,0},{0,0,1},{0,0,0},{0,0,1},{0,0,0},{0,0,1},{0,0,0},{0,0,1},{0,0,0},//grün blinken
+    {0,0,0},{0,0,1},{0,0,0},{0,0,1},{0,0,0},{0,0,1},{0,0,0},{0,0,1},//grün blinken
     {0,1,0},//gelb
     {1,0,0},//rot
     {1,1,0}//rotgelb
 };
 long cycle_interval[]={
     4500,//grün dauer
-    500,500,500,500,500,500,500,500,500,//grün blinken dauer
+    500,500,500,500,500,500,500,500,//grün blinken dauer
     2500,//gelb dauer
     5000,//rot dauer
     2500//rotgelb dauer
