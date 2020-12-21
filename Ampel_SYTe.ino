@@ -3,7 +3,7 @@ int led_pins[]={3,4,5},pin_switch=2;
 bool led_state[size_]={0,0,0};
 int now_blink=0,now_cycle=0;
 unsigned long previous=0,current=millis();
-long debounce = 50;
+long debounce = 20;
 volatile unsigned long last=0;
 int p = 0;
 
@@ -37,6 +37,7 @@ void setup(){
   for(int i=0;i<size_;i++)
     pinMode(led_pins[i], OUTPUT);
   pinMode(pin_switch, INPUT_PULLUP);
+  
   attachInterrupt(digitalPinToInterrupt(pin_switch), button, RISING);
 }
 
@@ -51,13 +52,13 @@ void update(bool cycle[][size_], long interval[], int& now, int cycle_length){
 
 void button(){
   if(micros()-last>=debounce*1000){
-    Serial.println("Interrupt!");
+    p=(p+1)%2;
     last=micros();
+      current=millis();
   }
 }
 
 void loop(){ 
-  Serial.println(p);
   switch(p){
     case 0:
       update(cycle_,cycle_interval,now_cycle,sizeof(cycle_)/size_);
