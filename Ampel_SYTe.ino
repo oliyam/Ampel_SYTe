@@ -37,7 +37,6 @@ void setup(){
   for(int i=0;i<size_;i++)
     pinMode(led_pins[i], OUTPUT);
   pinMode(pin_switch, INPUT_PULLUP);
-  
   attachInterrupt(digitalPinToInterrupt(pin_switch), button, RISING);
 }
 
