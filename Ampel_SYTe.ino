@@ -1,8 +1,11 @@
 const int size_=3;
-int led_pins[]={2,3,4},pin_switch=5;
+int led_pins[]={3,4,5},pin_switch=2;
 bool led_state[size_]={0,0,0};
 int now_blink=0,now_cycle=0;
 unsigned long previous=0,current=millis();
+long debounce = 50;
+volatile unsigned long last=0;
+int p = 0;
 
 //ampelzyklus
 bool cycle_[][size_]={
@@ -30,9 +33,11 @@ long blink_interval[]={
 };
 
 void setup(){
+  Serial.begin(9600);
   for(int i=0;i<size_;i++)
     pinMode(led_pins[i], OUTPUT);
   pinMode(pin_switch, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(pin_switch), button, RISING);
 }
 
 void update(bool cycle[][size_], long interval[], int& now, int cycle_length){
@@ -44,14 +49,24 @@ void update(bool cycle[][size_], long interval[], int& now, int cycle_length){
   }
 }
 
-void loop(){ 
-  if(digitalRead(pin_switch)){
-    update(cycle_,cycle_interval,now_cycle,sizeof(cycle_)/size_);
-    now_blink=0;
+void button(){
+  if(micros()-last>=debounce*1000){
+    Serial.println("Interrupt!");
+    last=micros();
   }
-  else{
-    update(blink_,blink_interval,now_blink,sizeof(blink_)/size_);
-    now_cycle=0;
+}
+
+void loop(){ 
+  Serial.println(p);
+  switch(p){
+    case 0:
+      update(cycle_,cycle_interval,now_cycle,sizeof(cycle_)/size_);
+      now_blink=0;
+      break;
+    case 1:
+      update(blink_,blink_interval,now_blink,sizeof(blink_)/size_);
+      now_cycle=0;
+      break;
   } 
   current=millis();
 }
