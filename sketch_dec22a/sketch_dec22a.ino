@@ -9,27 +9,19 @@ int p = 0;
 
 //ampelzyklus
 bool cycle_[][size_]={
-    {0,0,1},//grün
-    {0,0,0},{0,0,1},{0,0,0},{0,0,1},{0,0,0},{0,0,1},{0,0,0},{0,0,1},//grün blinken
-    {0,1,0},//gelb
-    {1,0,0},//rot
-    {1,1,0}//rotgelb
+    {1,0,0},//grün an
+    {0,1,0}//gelb an
 };
 long cycle_interval[]={
-    4500,//grün dauer
-    500,500,500,500,500,500,500,500,//grün blinken dauer
-    2500,//gelb dauer
-    5000,//rot dauer
-    2500//rotgelb dauer
+    4500,//rot dauer an
+    random(500, 5000)//gelb dauer an
 };
 //gelb blinken
 bool blink_[][size_]={
-    {0,1,0},//gelb an
-    {0,0,0}//gelb aus
+    {0,0,1}//grün an
 };
 long blink_interval[]={
-    5000,//gelb an dauer
-    5000//gelb aus dauer
+    5000//grün an dauer
 };
 
 void setup(){
